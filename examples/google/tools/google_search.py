@@ -1,0 +1,61 @@
+# Based on code from the book "Agentic Design Patterns: A Hands-On Guide
+# to Building Intelligent Systems" by Antonio Gullí
+# Modifications Copyright (c) 2025 Hannah Falk
+#
+# This code is licensed under the MIT License.
+# See the LICENSE file in the repository for the full license text.
+
+from google.adk.agents import Agent
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
+from google.adk.tools import google_search
+from google.genai import types
+
+GEMINI_MODEL = "gemini-2.0-flash-exp"
+
+APP_NAME = "Google Search_agent"
+USER_ID = "user1234"
+SESSION_ID = "1234"
+
+# Define Agent with access to search tool
+root_agent = Agent(
+    name="basic_search_agent",
+    model=GEMINI_MODEL,
+    description="Agenet to answer questions using Google Search.",
+    instruction="I can answer your questions by searching the internet. Just ask me anything!",
+    tools=[
+        google_search
+    ],  # Google Search is a pre-built tool to perform Google searches.
+)
+
+
+# Agent Interaction
+async def call_agent(query):
+    """
+    Helper function to call the agent with a query.
+    """
+
+    # Session and Runner
+    session_service = InMemorySessionService()
+    session = await session_service.create_session(
+        app_name=APP_NAME, user_id=USER_ID, session_id=SESSION_ID
+    )
+    runner = Runner(
+        agent=root_agent, app_name=APP_NAME, session_service=session_service
+    )
+
+    content = types.Content(role="user", parts=[types.Part(text=query)])
+    events = runner.run(user_id=USER_ID, session_id=SESSION_ID, new_message=content)
+
+    for event in events:
+        if event.is_final_response():
+            final_response = event.content.parts[0].text
+            print("Agent Response: ", final_response)
+
+
+# Example usage in main.py
+# async def main():
+#     await call_agent("what's the latest ai news?")
+
+# if __name__ == "__main__":
+#     asyncio.run(main())

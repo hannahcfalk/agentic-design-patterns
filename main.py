@@ -1,9 +1,8 @@
+import asyncio
 import os
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
-import asyncio
-
-from examples.langchain import parallelization
+from examples.google.tools.enterprise_search import call_agent
 
 load_dotenv()
 
@@ -24,9 +23,7 @@ def retrieve_langchain_llm():
 
 
 async def main():
-    llm = retrieve_langchain_llm()
-    test_topic = "The history of space exploration"
-    await parallelization.execute(test_topic)
+    await call_agent("gcp revenue q1 2022")
 
 
 if __name__ == "__main__":

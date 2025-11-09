@@ -21,9 +21,7 @@ pip install -r requirements.txt
 cp .env.template .env
 ```
 
-Edit `.env` and add your API keys:
-- `ANTHROPIC_API_KEY` - Your Anthropic API key
-- `GOOGLE_API_KEY` - Your Google API key
+Edit `.env` and add your API keys
 
 ## License
 

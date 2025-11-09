@@ -65,18 +65,9 @@ Set the API key in your environment:
 export GOOGLE_API_KEY="your-api-key-here"
 ```
 
-## Available Agents
-
-### Parallelization Agent
-
-**Location:** `examples/google/agents/parallelization/`
-
-**Description:** Demonstrates parallel agent execution using the `ParallelAgent` pattern. This agent:
-- Runs 3 research agents concurrently (Renewable Energy, Electric Vehicles, Carbon Capture)
-- Each agent uses Google Search to gather information
-- A synthesis agent combines all findings into a structured report
-
 ## Running Agents
+
+#### Terminal
 
 ```bash
 # Run from the repository root
@@ -89,6 +80,20 @@ This will:
 3. Type a query like: `"Please research the topics"` or `"Start the research"`
 4. The agent will execute and display results
 5. Type `exit` to quit
+
+#### Dev UI
+
+1. Navigate to the agents directory
+```bash
+cd examples/google/agents
+```
+
+2. Launch UI and navigate to the URL provided
+```bash
+adk web
+```
+
+3. Select your agent in the dropdown.
 
 ## Troubleshooting
 
