@@ -67,3 +67,12 @@ async def call_agent(query: str):
         print(
             "Please ensure your datastore ID is correct and that the service account has the necessary permissions."
         )
+
+
+# Example usage in main
+# async def main():
+#     await call_agent("gcp revenue q1 2022")
+
+
+# if __name__ == "__main__":
+#     asyncio.run(main())
